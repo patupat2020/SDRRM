@@ -21,7 +21,7 @@ if os.path.exists(DATA_FILE):
     already_submitted = df_existing['Section_Info'].unique().tolist()
 
 # --- 2. SELECTION LOGIC ---
-division = st.radio("Select Division", ["JHS", "SHS"], index=None, horizontal=True)
+division = st.radio("Select Level", ["JHS", "SHS"], index=None, horizontal=True)
 teacher_name = st.text_input("Adviser Name", key="adv_name")
 
 grade = None
