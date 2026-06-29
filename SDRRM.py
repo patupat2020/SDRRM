@@ -9,8 +9,8 @@ import io
 def get_sections(count):
     return list(string.ascii_uppercase[:count])
 
-st.set_page_config(page_title="BNHS DRRM Headcount", page_icon="🚨")
-st.title("🚨 BNHS Emergency Headcount")
+st.set_page_config(page_title="BeNHS DRRM Headcount", page_icon="🚨")
+st.title("🚨 BeNHS Emergency Headcount")
 
 DATA_FILE = "headcount_log.csv"
 
