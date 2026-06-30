@@ -12,9 +12,6 @@ from datetime import datetime
 import io
 import string
 
-
-
-
 st.set_page_config(page_title="BeNHS DRRM Headcount", page_icon="🚨")
 st.title("🚨 BeNHS Emergency Headcount")
 
