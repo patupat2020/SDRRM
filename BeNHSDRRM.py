@@ -1,9 +1,19 @@
 import streamlit as st
+
+# Debugging: Print keys to the console
+st.write("Current secrets keys loaded:", st.secrets.keys())
+
+# If the app crashes, comment out the line below to let it run
+# sheet = get_sheet()
+
 import pandas as pd
 import gspread
 from datetime import datetime
 import io
 import string
+
+
+
 
 st.set_page_config(page_title="BNHS DRRM Headcount", page_icon="🚨")
 st.title("🚨 BNHS Emergency Headcount")
