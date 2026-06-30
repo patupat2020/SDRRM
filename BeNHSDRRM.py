@@ -19,7 +19,8 @@ st.title("🚨 BeNHS Emergency Headcount")
 @st.cache_resource
 def get_sheet():
     # This expects the 'gcp_service_account' key to be set in Streamlit Cloud Secrets
-    gc = gspread.service_account_from_dict(st.secrets["gcp_service_account"])
+    # Change this line in your streamlit_app.py:
+gc = gspread.service_account_from_dict(dict(st.secrets["gcp_service_account"]))
     sh = gc.open("Headcount_Database")
     return sh.sheet1
 
