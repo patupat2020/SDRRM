@@ -5,24 +5,25 @@ from datetime import datetime
 import io
 import string
 
-st.set_page_config(page_title="BeNHS DRRM Headcount", page_icon="🚨")
-st.title("🚨 BeNHS Emergency Headcount")
+st.set_page_config(page_title="BNHS DRRM Headcount", page_icon="🚨")
+st.title("🚨 BNHS Emergency Headcount")
 
 # --- 1. CONNECT TO GOOGLE SHEETS ---
 @st.cache_resource
 def get_sheet():
-    # This expects credentials to be saved in Streamlit Secrets
+    # This looks for 'gcp_service_account' in your Streamlit Secrets
     gc = gspread.service_account_from_dict(st.secrets["gcp_service_account"])
-    sh = gc.open("Headcount_Database")
+    sh = gc.open("Headcount_Database") # Ensure this matches your Google Sheet name exactly
     return sh.sheet1
 
 try:
     sheet = get_sheet()
     data = sheet.get_all_records()
     df_existing = pd.DataFrame(data)
+    # Filter duplicates
     already_submitted = df_existing['Section_Info'].unique().tolist() if not df_existing.empty else []
 except Exception as e:
-    st.error("Error connecting to Google Sheets. Check your Secrets configuration.")
+    st.error(f"Error connecting to Google Sheets: {e}")
     st.stop()
 
 # --- 2. SELECTION LOGIC ---
@@ -31,8 +32,7 @@ teacher_name = st.text_input("Adviser Name", key="adv_name")
 
 section_label = None
 
-# ... [Include your previous JHS/SHS logic here] ...
-# Make sure 'section_label' is set by the end of your selection logic.
+# ... [Insert your previous JHS/SHS logic here, ensuring 'section_label' is set] ...
 
 # --- 3. INPUT FORM ---
 if section_label:
