@@ -15,8 +15,8 @@ import string
 
 
 
-st.set_page_config(page_title="BNHS DRRM Headcount", page_icon="🚨")
-st.title("🚨 BNHS Emergency Headcount")
+st.set_page_config(page_title="BeNHS DRRM Headcount", page_icon="🚨")
+st.title("🚨 BeNHS Emergency Headcount")
 
 # --- 1. CONNECT TO GOOGLE SHEETS ---
 @st.cache_resource
