@@ -11,16 +11,15 @@ st.title("🚨 BNHS Emergency Headcount")
 # --- 1. CONNECT TO GOOGLE SHEETS ---
 @st.cache_resource
 def get_sheet():
-    # This looks for 'gcp_service_account' in your Streamlit Secrets
+    # This expects the 'gcp_service_account' key to be set in Streamlit Cloud Secrets
     gc = gspread.service_account_from_dict(st.secrets["gcp_service_account"])
-    sh = gc.open("Headcount_Database") # Ensure this matches your Google Sheet name exactly
+    sh = gc.open("Headcount_Database")
     return sh.sheet1
 
 try:
     sheet = get_sheet()
     data = sheet.get_all_records()
     df_existing = pd.DataFrame(data)
-    # Filter duplicates
     already_submitted = df_existing['Section_Info'].unique().tolist() if not df_existing.empty else []
 except Exception as e:
     st.error(f"Error connecting to Google Sheets: {e}")
@@ -32,7 +31,7 @@ teacher_name = st.text_input("Adviser Name", key="adv_name")
 
 section_label = None
 
-# ... [Insert your previous JHS/SHS logic here, ensuring 'section_label' is set] ...
+# ... [Insert your section selection logic here, ensuring section_label is defined] ...
 
 # --- 3. INPUT FORM ---
 if section_label:
@@ -56,12 +55,9 @@ if section_label:
 if st.sidebar.checkbox("Coordinator: View Master List"):
     if not df_existing.empty:
         st.dataframe(df_existing)
-        
-        # Excel Export
         buffer = io.BytesIO()
         with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
             df_existing.to_excel(writer, index=False)
-        
         st.download_button("📥 Download Excel", buffer.getvalue(), "Headcount_Report.xlsx")
     else:
         st.write("No data found.")
